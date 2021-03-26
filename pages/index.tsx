@@ -39,47 +39,31 @@ const Home = ({ isConnected }: Props): JSX.Element => {
   }
 
   return (
-    <Layout>
-      <Section>
-        <Card>
-          <Card.Content>
-            <Content>
-              <Link href="https://github.com/vercel/next.js#getting-started">
-                <a>
-                  <Title as="h3">Getting Started &rarr;</Title>
-                  <p>Learn more about Next on Github and in their examples</p>
-                </a>
-              </Link>
-              <h1>Is connected: {isConnected ? 'True' : 'False'}</h1>
-            </Content>
-          </Card.Content>
-        </Card>
-
-        <Field>
-          <Control iconLeft>
-            <Input
-              size="large"
-              type="email"
-              placeholder="E-mail"
-              onChange={(e: FormEvent<HTMLInputElement>) =>
-                setEmail(e.currentTarget.value)
-              }
-            />
-            <Icon size="medium" align="left">
-              <FontAwesomeIcon icon={faEnvelope} size="lg" />
-            </Icon>
-          </Control>
-          <Level>
-            <Level.Item>
-              <Button color="info" outlined onClick={() => handleSubscribe()}>
-                Subscribe
-              </Button>
-            </Level.Item>
-          </Level>
-        </Field>
-        <ToastContainer />
-      </Section>
-    </Layout>
+    <Section>
+      <Field>
+        <Control iconLeft>
+          <Input
+            size="large"
+            type="email"
+            placeholder="E-mail"
+            onChange={(e: FormEvent<HTMLInputElement>) =>
+              setEmail(e.currentTarget.value)
+            }
+          />
+          <Icon size="medium" align="left">
+            <FontAwesomeIcon icon={faEnvelope} size="lg" />
+          </Icon>
+        </Control>
+        <Level>
+          <Level.Item>
+            <Button color="info" outlined onClick={() => handleSubscribe()}>
+              Subscribe
+            </Button>
+          </Level.Item>
+        </Level>
+      </Field>
+      <ToastContainer />
+    </Section>
   )
 }
 
