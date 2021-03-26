@@ -1,32 +1,12 @@
-import Link from 'next/link'
 import { useState, FormEvent } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import * as EmailValidator from 'email-validator'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
-import {
-  Section,
-  Card,
-  Content,
-  Title,
-  Input,
-  Field,
-  Control,
-  Icon,
-  Button,
-  Level,
-} from 'rbx'
+import { Section, Input, Field, Control, Icon, Button, Level } from 'rbx'
 
-import Layout from 'components/Layout'
-
-import connectToDatabase from 'util/mongodb'
-
-type Props = {
-  isConnected: boolean
-}
-
-const Home = ({ isConnected }: Props): JSX.Element => {
+const Home = (): JSX.Element => {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -65,16 +45,6 @@ const Home = ({ isConnected }: Props): JSX.Element => {
       <ToastContainer />
     </Section>
   )
-}
-
-export async function getServerSideProps() {
-  const { client } = await connectToDatabase()
-
-  const isConnected = await client.isConnected()
-
-  return {
-    props: { isConnected },
-  }
 }
 
 export default Home
