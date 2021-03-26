@@ -11,9 +11,9 @@ const subscribeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (method) {
     case 'POST': {
-      const { db } = await connectToDatabase()
+      const { client, db } = await connectToDatabase()
       const collection = db.collection('emails')
-
+      console.log(client.isConnected())
       const checkExistingemail = await db
         .collection('emails')
         .findOne({
