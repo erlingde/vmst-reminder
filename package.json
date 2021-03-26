@@ -3,6 +3,7 @@
   "author": "@erlingde",
   "license": "MIT",
   "version": "0.0.1",
+  "repository": "https://github.com/erlingde/vmst-reminder",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
