@@ -36,15 +36,12 @@ export default async function connectToDatabase(): Promise<MongoDbConnection> {
   if (cached.conn) {
     return cached.conn
   }
-  console.log(MONGODB_URI)
-  console.log(MONGODB_DB)
 
   if (!cached.promise) {
     const opts = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }
-    console.log('before cached promise client connect')
     cached.promise = MongoClient.connect(MONGODB_URI as string, opts).then(
       (client) => ({
         client,
@@ -52,7 +49,7 @@ export default async function connectToDatabase(): Promise<MongoDbConnection> {
       })
     )
   }
+  cached.conn = cached.promise
   console.log('before return')
-  cached.conn = await cached.promise
   return cached.conn
 }
