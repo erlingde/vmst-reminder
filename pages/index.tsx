@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, FormEvent } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import * as EmailValidator from 'email-validator'
@@ -61,7 +61,9 @@ const Home = ({ isConnected }: Props): JSX.Element => {
               size="large"
               type="email"
               placeholder="E-mail"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e: FormEvent<HTMLInputElement>) =>
+                setEmail(e.currentTarget.value)
+              }
             />
             <Icon size="medium" align="left">
               <FontAwesomeIcon icon={faEnvelope} size="lg" />
