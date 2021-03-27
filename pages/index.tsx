@@ -6,7 +6,11 @@ import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 import { Section, Input, Field, Control, Icon, Button, Level } from 'rbx'
 
-const Home = ({ API_KEY }): JSX.Element => {
+type Props = {
+  API_KEY: string
+}
+
+const Home = ({ API_KEY }: Props): JSX.Element => {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
