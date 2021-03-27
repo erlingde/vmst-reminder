@@ -49,7 +49,6 @@ export default async function connectToDatabase(): Promise<MongoDbConnection> {
       })
     )
   }
-  cached.conn = cached.promise
-  console.log('before return')
+  cached.conn = await cached.promise
   return cached.conn
 }

@@ -6,13 +6,23 @@ import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 import { Section, Input, Field, Control, Icon, Button, Level } from 'rbx'
 
-const Home = (): JSX.Element => {
+const Home = ({ API_KEY }): JSX.Element => {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubscribe = () => {
     if (EmailValidator.validate(email)) {
-      axios.post('/api/subscribe', { email }).then((res) => console.log(res))
+      axios
+        .post(
+          '/api/subscribe',
+          { email },
+          {
+            headers: {
+              'x-api-key': API_KEY,
+            },
+          }
+        )
+        .then((res) => console.log(res))
     } else {
       toast.error('Invalid e-mail!')
     }
@@ -45,6 +55,16 @@ const Home = (): JSX.Element => {
       <ToastContainer />
     </Section>
   )
+}
+
+export async function getServerSideProps() {
+  const { API_KEY } = process.env
+
+  return {
+    props: {
+      API_KEY,
+    },
+  }
 }
 
 export default Home

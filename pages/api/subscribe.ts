@@ -4,22 +4,22 @@ import { nanoid } from 'nanoid'
 import connectToDatabase from 'util/mongodb'
 
 const subscribeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { API_KEY } = process.env
   const {
     body: { email },
+    headers,
     method,
   } = req
 
+  if (headers['x-api-key'] !== API_KEY)
+    return res.status(401).end('Not Authorized')
+
   switch (method) {
     case 'POST': {
-      console.log('inside POST')
-      const { client, db } = await connectToDatabase()
-      console.log('after connect')
-
+      const { db } = await connectToDatabase()
       const collection = db.collection('emails')
-      console.log('after collection')
-      console.log(client.isConnected())
-      const checkExistingemail = await db
-        .collection('emails')
+
+      const checkExistingemail = await collection
         .findOne({
           email,
         })
