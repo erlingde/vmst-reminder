@@ -45,8 +45,6 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 This project is built as a reminding e-mail service for users on unemployment benefits. In order to receive benefits the user has to verify it's job search for the current month on [Vinnumálastofnun's](https://vinnumalastofnun.is) site between 20th and 25th of each month.
 
 An e-mail will be sent on the 20th of every month at 13:37 GMT+0.
@@ -58,6 +56,8 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 - [Next.js](https://nextjs.org)
 - [TypeScript](https://www.typescriptlang.org)
 - [MongoDB](https://www.mongodb.com)
+
+Project was bootstrapped with [Create Next App w/ TypeScript, Eslint and Jest](https://github.com/vercel/next.js/tree/canary/examples/with-typescript-eslint-jest)
 
 <!-- GETTING STARTED -->
 
@@ -87,11 +87,11 @@ To get a local copy up and running follow these simple example steps.
    ```
 4. Create file `.env.local`, see example `.env.local.example`
    ```JS
-    MONGODB_URI=[ENTER URI STRING]
-    MONGODB_DB=[ENTER DB NAME]
-    NEXT_PUBLIC_API_KEY=[ENTER API KEY];
-    GMAIL_USER=[ENTER GMAIL EMAIL ADDRESS]
-    GMAIL_PASSWORD=[ENTER GMAIL PASSWORD]
+   MONGODB_URI=[ENTER URI STRING]
+   MONGODB_DB=[ENTER DB NAME]
+   NEXT_PUBLIC_API_KEY=[ENTER API KEY]
+   GMAIL_USER=[ENTER GMAIL EMAIL ADDRESS]
+   GMAIL_PASSWORD=[ENTER GMAIL PASSWORD]
    ```
 
 <!-- LICENSE -->
