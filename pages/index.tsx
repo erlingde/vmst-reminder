@@ -16,17 +16,7 @@ const Home = ({ API_KEY }: Props): JSX.Element => {
 
   const handleSubscribe = () => {
     if (EmailValidator.validate(email)) {
-      axios
-        .post(
-          '/api/subscribe',
-          { email },
-          {
-            headers: {
-              'x-api-key': API_KEY,
-            },
-          }
-        )
-        .then((res) => console.log(res))
+      axios.post('/api/subscribe', { email }).then((res) => console.log(res))
     } else {
       toast.error('Invalid e-mail!')
     }
@@ -59,16 +49,6 @@ const Home = ({ API_KEY }: Props): JSX.Element => {
       <ToastContainer />
     </Section>
   )
-}
-
-export async function getServerSideProps() {
-  const { API_KEY } = process.env
-
-  return {
-    props: {
-      API_KEY,
-    },
-  }
 }
 
 export default Home
