@@ -1,11 +1,8 @@
-import { useState, FormEvent } from 'react'
 import { NextPageContext } from 'next'
 import { useRouter } from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
-import { Section, Input, Field, Control, Icon, Button, Level } from 'rbx'
+import { Section, Field, Button, Level } from 'rbx'
 
 import connectToDatabase from 'util/mongodb'
 

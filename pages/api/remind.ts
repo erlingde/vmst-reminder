@@ -4,6 +4,7 @@ import mjml from 'mjml'
 import mustache from 'mustache'
 
 import connectToDatabase from 'util/mongodb'
+import authMiddleware from 'util/authMiddleware'
 import mjmlTemplate from 'email/reminder'
 
 type Email = {
@@ -56,4 +57,4 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default remindHandler
+export default authMiddleware(remindHandler)

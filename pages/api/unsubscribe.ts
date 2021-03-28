@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import apiMiddleware from 'util/authMiddleware'
+import authMiddleware from 'util/authMiddleware'
 
 import connectToDatabase from 'util/mongodb'
 
@@ -35,4 +35,4 @@ const unsubscribeHandler = async (
   }
 }
 
-export default apiMiddleware(unsubscribeHandler)
+export default authMiddleware(unsubscribeHandler)
