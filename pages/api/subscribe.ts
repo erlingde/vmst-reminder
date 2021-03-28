@@ -2,16 +2,17 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { nanoid } from 'nanoid'
 
 import connectToDatabase from 'util/mongodb'
+import authMiddleware from 'util/authMiddleware'
 
 const subscribeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { API_KEY } = process.env
+  const { NEXT_PUBLIC_API_KEY } = process.env
   const {
     body: { email },
     headers,
     method,
   } = req
 
-  if (headers['x-api-key'] !== API_KEY)
+  if (headers['x-api-key'] !== NEXT_PUBLIC_API_KEY)
     return res.status(401).end('Not Authorized')
 
   switch (method) {
@@ -19,18 +20,16 @@ const subscribeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const { db } = await connectToDatabase()
       const collection = db.collection('emails')
 
-      const checkExistingemail = await collection
-        .findOne({
-          email,
-        })
-        .then((result) => result)
+      const checkExistingEmail = await collection.findOne({
+        email,
+      })
 
-      if (checkExistingemail) {
+      if (checkExistingEmail) {
         return res.status(400).end('E-mail already signed up')
       }
 
       collection.insertOne({
-        _id: nanoid(12),
+        id: nanoid(12),
         email,
         enabled: true,
       })
@@ -43,4 +42,4 @@ const subscribeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default subscribeHandler
+export default authMiddleware(subscribeHandler)

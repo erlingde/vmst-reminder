@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { nanoid } from 'nanoid'
+import apiMiddleware from 'util/authMiddleware'
 
 import connectToDatabase from 'util/mongodb'
 
@@ -8,33 +8,26 @@ const unsubscribeHandler = async (
   res: NextApiResponse
 ) => {
   const {
-    body: { email },
     method,
+    query: { id },
   } = req
 
   switch (method) {
     case 'POST': {
       const { db } = await connectToDatabase()
-      const collection = db.collection('emails')
 
-      const checkExistingemail = await db
-        .collection('emails')
-        .findOne({
-          email,
-        })
-        .then((result) => result)
+      const result = await db.collection('emails').updateOne(
+        {
+          id,
+        },
+        {
+          $set: {
+            enabled: false,
+          },
+        }
+      )
 
-      if (checkExistingemail) {
-        return res.status(400).end('E-mail already signed up')
-      }
-
-      collection.insertOne({
-        _id: nanoid(12),
-        email,
-        enabled: true,
-      })
-
-      return res.status(200).end()
+      return res.status(result.modifiedCount ? 200 : 400).end()
     }
     default:
       res.setHeader('Allow', ['POST'])
@@ -42,4 +35,4 @@ const unsubscribeHandler = async (
   }
 }
 
-export default unsubscribeHandler
+export default apiMiddleware(unsubscribeHandler)

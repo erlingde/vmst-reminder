@@ -13,10 +13,10 @@ type Email = {
 }
 
 const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { API_KEY, GMAIL_PASSWORD, GMAIL_USER } = process.env
+  const { NEXT_PUBLIC_API_KEY, GMAIL_PASSWORD, GMAIL_USER } = process.env
   const { method, headers } = req
 
-  if (headers['x-api-key'] !== API_KEY)
+  if (headers['x-api-key'] !== NEXT_PUBLIC_API_KEY)
     return res.status(401).end('Not Authorized')
 
   switch (method) {
