@@ -18,7 +18,7 @@ export default `
       <mj-section background-color="#fafafa" border-top="1px solid #00765f">
         <mj-column width="400px">
           <mj-text font-style="italic" font-size="15px" font-family="Helvetica Neue" color="#626262">Don't want to see these emails anymore?</mj-text>
-          <mj-button background-color="orange" href="https://vmst-reminder.vercel.app/unsubscribe?id={{id}}">Unsubscribe</mj-button>
+          <mj-button background-color="orange" href="https://vmst-reminder.vercel.app/unsubscribe/{{id}}">Unsubscribe</mj-button>
         </mj-column>
       </mj-section>
     </mj-body>
