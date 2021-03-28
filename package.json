@@ -12,18 +12,18 @@
     "format": "prettier --write .",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "test": "jest",
-    "test-all": "yarn lint && yarn type-check && yarn test"
+    "test-all": "npm run lint && npm run type-check && npm run test"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "yarn run type-check"
+      "pre-push": "npm run run type-check"
     }
   },
   "lint-staged": {
     "*.@(ts|tsx)": [
-      "yarn lint",
-      "yarn format"
+      "npm run lint",
+      "npm run format"
     ]
   },
   "dependencies": {
@@ -35,7 +35,6 @@
     "email-validator": "^2.0.4",
     "mjml": "^4.9.0",
     "mongodb": "^3.6.5",
-    "mongoose": "^5.12.2",
     "mustache": "^4.1.0",
     "nanoid": "^3.1.22",
     "next": "latest",
