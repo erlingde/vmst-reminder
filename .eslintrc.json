@@ -41,8 +41,10 @@
     "@typescript-eslint/semi": "off",
     "react/jsx-props-no-spreading": 0,
     "react/jsx-one-expression-per-line": 0,
+    "react/jsx-curly-newline": "off",
     "object-curly-newline": "off",
     "@typescript-eslint/comma-dangle": ["off"],
+
     "@typescript-eslint/no-unused-vars": [
       2,
       {
