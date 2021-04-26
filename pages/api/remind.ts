@@ -14,10 +14,18 @@ type Email = {
 }
 
 const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { NEXT_PUBLIC_API_KEY, GMAIL_PASSWORD, GMAIL_USER } = process.env
+  const {
+    NEXT_PUBLIC_API_KEY,
+    API_CRON_KEY,
+    GMAIL_PASSWORD,
+    GMAIL_USER,
+  } = process.env
   const { method, headers } = req
 
-  if (headers['x-api-key'] !== NEXT_PUBLIC_API_KEY)
+  if (
+    headers['x-api-key'] !== NEXT_PUBLIC_API_KEY &&
+    headers['x-api-cron-key'] !== API_CRON_KEY
+  )
     return res.status(401).end('Not Authorized')
 
   switch (method) {
@@ -45,7 +53,7 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           from: `"Vinnumálastofnun Reminder" <${GMAIL_USER}>`,
           to: item.email,
           subject: 'Vinnumálastofnun Reminder',
-          text: 'Hello world?',
+          text: 'Hello world?', // TODO
           html,
         })
       })

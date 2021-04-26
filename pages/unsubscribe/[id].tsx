@@ -16,8 +16,12 @@ const Unsubscribe = ({ validId }: Props): JSX.Element => {
   const router = useRouter()
   const { id } = router.query
 
-  const handleUnsubscribe = () => {
-    axios.post(`/api/unsubscribe?id=${id}`).then((res) => console.log(res))
+  const handleUnsubscribe = async () => {
+    try {
+      await axios.post(`/api/unsubscribe?id=${id}`)
+    } catch {
+      toast.error('Error occurred while unsubscribing!')
+    }
   }
 
   return (
