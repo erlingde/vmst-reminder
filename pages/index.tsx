@@ -1,53 +1,109 @@
-import { useState, FormEvent } from 'react'
+import { useState } from 'react'
+import Head from 'next/head'
+import Link from 'next/link'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import * as EmailValidator from 'email-validator'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
-import { Section, Input, Field, Control, Icon, Button, Level } from 'rbx'
+import { Field, Control, Icon, Level, Column } from 'rbx'
+import Image from 'next/image'
 
-type Props = {
-  API_KEY: string
-}
+import Button from 'components/atoms/Button'
+import EmailInput from 'components/atoms/EmailInput'
 
-const Home = ({ API_KEY }: Props): JSX.Element => {
+const Home = (): JSX.Element => {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubscribe = () => {
+  const handleSubscribe = async () => {
     if (EmailValidator.validate(email)) {
-      axios.post('/api/subscribe', { email }).then((res) => console.log(res))
+      setIsLoading(true)
+      try {
+        await axios.post('/api/subscribe', { email })
+      } catch {
+        setIsLoading(false)
+        return toast.error('Invalid e-mail address!')
+      }
+      toast.success('Success!')
+      setIsLoading(false)
     } else {
-      toast.error('Invalid e-mail!')
+      toast.error('Invalid e-mail address!')
     }
   }
 
   return (
-    <Section>
-      <Field>
-        <Control iconLeft>
-          <Input
-            size="large"
-            type="email"
-            placeholder="E-mail"
-            onChange={(e: FormEvent<HTMLInputElement>) =>
-              setEmail(e.currentTarget.value)
-            }
-          />
-          <Icon size="medium" align="left">
-            <FontAwesomeIcon icon={faEnvelope} size="lg" />
-          </Icon>
-        </Control>
-        <Level>
-          <Level.Item>
-            <Button color="info" outlined onClick={() => handleSubscribe()}>
-              Subscribe
-            </Button>
-          </Level.Item>
-        </Level>
-      </Field>
+    <>
+      <Head>
+        <title>VMST Reminder</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
+      <header>
+        <div className="container flex">
+          <Link href="/">
+            <Image
+              src="/Logo.png"
+              alt="Logo"
+              width="100"
+              height="74"
+              className="header-item"
+            />
+          </Link>
+          <Link href="https://github.com/erlingde/vmst-reminder">
+            <Icon size="medium" className="header-icon">
+              <FontAwesomeIcon icon={faGithub} className="header-item" />
+            </Icon>
+          </Link>
+        </div>
+      </header>
+      <main>
+        <div className="container grid">
+          <div className="information">
+            <h1>Sign up.</h1>
+            <h1>
+              Enjoy<span className="information--dot">.</span>
+            </h1>
+            <p>
+              Sign up for a monthly e-mail reminder to verify job search on
+              Vinnumálastofnun!
+            </p>
+          </div>
+
+          <Field>
+            <Column.Group centered>
+              <Column>
+                <Control>
+                  <EmailInput
+                    size="large"
+                    placeholder="E-mail"
+                    onChange={setEmail}
+                  />
+                </Control>
+              </Column>
+            </Column.Group>
+            <Level>
+              <Level.Item>
+                <Button
+                  onClick={() => handleSubscribe()}
+                  disabled={isLoading}
+                  title="Subscribe"
+                  isLoading={isLoading}
+                />
+              </Level.Item>
+            </Level>
+          </Field>
+        </div>
+      </main>
       <ToastContainer />
-    </Section>
+      <div className="box" />
+    </>
   )
 }
 
