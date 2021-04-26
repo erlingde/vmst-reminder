@@ -1,0 +1,206 @@
+:root {
+  --header-height: 200px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+  min-height: 100vh;
+  color: #333;
+  line-height: 1.6;
+}
+
+h1,
+h2 {
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 10px 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+.custom-shape-divider-top-1616960561 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1616960561 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 164px;
+}
+
+.custom-shape-divider-top-1616960561 .shape-fill {
+  fill: #ca1111;
+}
+
+header {
+  /* height: var(--header-height); */
+  padding-top: 2rem;
+}
+
+.header-item {
+  cursor: pointer;
+}
+
+.header-icon:hover {
+  transition: ease-in opacity 0.15s;
+  opacity: 80%;
+}
+
+main {
+  height: calc(100vh - var(--header-height));
+  z-index: 10;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.field {
+  max-width: 30rem;
+  padding: 3rem;
+  border-radius: 5%;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+    0 100px 80px rgba(0, 0, 0, 0.07);
+  z-index: 10;
+  animation-name: slideInFromRight;
+  animation-duration: 1s;
+}
+
+.box {
+  height: 300px;
+  width: 300px;
+  background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+  position: absolute;
+  bottom: 34px;
+  left: -120px;
+  border-radius: 55px;
+  transform: rotateZ(15deg);
+  z-index: -1;
+}
+
+.information {
+  min-width: 20rem;
+  z-index: 10;
+  animation-name: slideInFromLeft;
+  animation-duration: 1s;
+}
+
+.information h1 {
+  font-weight: 800;
+  font-size: 5rem;
+}
+
+.information p {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.information :nth-child(2):after {
+  content: '';
+  display: block;
+  position: relative;
+  bottom: 13px;
+  background: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+  width: 250px;
+  height: 5px;
+  z-index: -1;
+  border-radius: 5px;
+}
+
+.information--dot {
+  animation-name: bounce;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  position: absolute;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-20px);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  75% {
+    transform: translateY(-10px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Animations */
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .grid {
+    display: block;
+  }
+
+  .field {
+    margin: 0 auto;
+  }
+
+  .information {
+    margin: 5rem 0;
+  }
+}
