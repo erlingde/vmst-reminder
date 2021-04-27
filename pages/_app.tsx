@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import axios from 'axios'
 
-import 'bulma-pro/css/bulma.css'
+// import 'bulma-pro/css/bulma.css'
 import 'react-toastify/dist/ReactToastify.css'
 import './index.css'
 

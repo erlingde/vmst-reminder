@@ -1,36 +1,17 @@
-import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import * as EmailValidator from 'email-validator'
 import { ToastContainer, toast } from 'react-toastify'
-import axios from 'axios'
-import { Field, Control, Icon, Level, Column } from 'rbx'
-import Image from 'next/image'
 
-import Button from 'components/atoms/Button'
-import EmailInput from 'components/atoms/EmailInput'
+import Form from 'components/molecules/Form'
 
 const Home = (): JSX.Element => {
-  const [email, setEmail] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleSubscribe = async () => {
-    if (EmailValidator.validate(email)) {
-      setIsLoading(true)
-      try {
-        await axios.post('/api/subscribe', { email })
-      } catch {
-        setIsLoading(false)
-        return toast.error('Invalid e-mail address!')
-      }
-      toast.success('Success!')
-      setIsLoading(false)
-    } else {
-      toast.error('Invalid e-mail address!')
-    }
+  const displayToast = {
+    error: (label: string) => toast.error(label),
+    success: (label: string) => toast.success(label),
   }
 
   return (
@@ -41,7 +22,7 @@ const Home = (): JSX.Element => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap"
           rel="stylesheet"
         />
       </Head>
@@ -57,9 +38,7 @@ const Home = (): JSX.Element => {
             />
           </Link>
           <Link href="https://github.com/erlingde/vmst-reminder">
-            <Icon size="medium" className="header-icon">
-              <FontAwesomeIcon icon={faGithub} className="header-item" />
-            </Icon>
+            <FontAwesomeIcon icon={faGithub} className="header-item github" />
           </Link>
         </div>
       </header>
@@ -75,30 +54,7 @@ const Home = (): JSX.Element => {
               Vinnumálastofnun!
             </p>
           </div>
-
-          <Field>
-            <Column.Group centered>
-              <Column>
-                <Control>
-                  <EmailInput
-                    size="large"
-                    placeholder="E-mail"
-                    onChange={setEmail}
-                  />
-                </Control>
-              </Column>
-            </Column.Group>
-            <Level>
-              <Level.Item>
-                <Button
-                  onClick={() => handleSubscribe()}
-                  disabled={isLoading}
-                  title="Subscribe"
-                  isLoading={isLoading}
-                />
-              </Level.Item>
-            </Level>
-          </Field>
+          <Form displayToast={displayToast} />
         </div>
       </main>
       <ToastContainer />
