@@ -32,7 +32,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.21.1",
-    "bulma-pro": "^0.2.0",
     "email-validator": "^2.0.4",
     "mjml": "^4.9.0",
     "mongodb": "^3.6.5",
@@ -41,7 +40,6 @@
     "next": "latest",
     "next-react-svg": "^1.1.2",
     "nodemailer": "^6.5.0",
-    "rbx": "^2.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-toastify": "^7.0.3"
