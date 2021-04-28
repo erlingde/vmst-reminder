@@ -12,7 +12,7 @@ type Props = {
 
 const Button = ({ onClick, disabled, isLoading, title, success }: Props) => (
   <button
-    className={`btn ${success ? 'btn-disabled' : ''})`}
+    className={`btn ${success ? 'btn-disabled' : ''}`}
     type="button"
     disabled={disabled}
     onClick={() => onClick()}

@@ -198,20 +198,18 @@ main {
   left: 0;
   bottom: 0;
   right: 0;
-  /* width: 0%; */
-  /* height: 100%; */
   background-color: #3498db;
   z-index: -1;
   transition: transform 0.8s;
   transform: scaleX(0);
-  transform-origin: 100%;
+  transform-origin: right;
   will-change: transform;
 }
 
 .btn:hover:before,
 .btn:focus:before {
   transform: scaleX(1);
-  transform-origin: 0px;
+  transform-origin: left;
 }
 
 .btn-icon {
@@ -224,32 +222,12 @@ main {
 
 .btn-disabled.btn:before {
   transform: scaleX(1);
-  transform-origin: 0px;
+  transform-origin: left;
 }
 
 .btn-disabled.btn {
   cursor: not-allowed;
   color: white;
-}
-
-.box {
-  height: 300px;
-  width: 300px;
-  /* background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%); */
-  /* background-image: url('/assets/png/email.png'); */
-
-  /* background-image: url('/public/email.png');
-  background-size: 100%;
-  height: 100%;
-  width: 100%;
-  min-height: 100%; */
-
-  position: absolute;
-  bottom: 34px;
-  left: -120px;
-  border-radius: 55px;
-  transform: rotateZ(15deg);
-  z-index: 25;
 }
 
 .email-icon-wrapper {
