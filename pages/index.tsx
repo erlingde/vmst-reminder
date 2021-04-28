@@ -58,7 +58,10 @@ const Home = (): JSX.Element => {
         </div>
       </main>
       <ToastContainer />
-      <div className="box" />
+      <div className="email-icon-wrapper">
+        <Image src="/email.png" width="300px" height="300px" />
+      </div>
+      {/* <div className="box"></div> */}
     </>
   )
 }

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Field, Control, Level, Column } from 'rbx'
 import * as EmailValidator from 'email-validator'
 import axios from 'axios'
 
@@ -38,20 +37,16 @@ const Form = ({ displayToast }: Props) => {
   }
 
   return (
-    <Field>
+    <div className="field">
       <EmailInput onChange={setEmail} />
-      <Level>
-        <Level.Item>
-          <Button
-            onClick={() => handleSubscribe()}
-            disabled={isLoading || success}
-            title="Subscribe"
-            isLoading={isLoading}
-            success={success}
-          />
-        </Level.Item>
-      </Level>
-    </Field>
+      <Button
+        onClick={() => handleSubscribe()}
+        disabled={isLoading || success}
+        title="Subscribe"
+        isLoading={isLoading}
+        success={success}
+      />
+    </div>
   )
 }
 

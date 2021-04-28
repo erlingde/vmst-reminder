@@ -1,11 +1,8 @@
 import { FormEvent } from 'react'
-import { Input } from 'rbx'
 
 type Props = {
   onChange: (value: string) => void
 }
-
-type Size = 'small' | 'medium' | 'large' | undefined
 
 const EmailInput = ({ onChange }: Props) => (
   <div className="form">
