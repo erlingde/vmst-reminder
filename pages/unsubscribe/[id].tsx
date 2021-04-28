@@ -1,12 +1,10 @@
 import { NextPageContext } from 'next'
 import { useRouter } from 'next/router'
-import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
-import { Section, Field, Button, Level } from 'rbx'
 
 import connectToDatabase from 'util/mongodb'
 
-import NotFound from 'assets/svg/NotFound.svg'
+// import NotFound from 'assets/svg/NotFound.svg'
 
 type Props = {
   validId: boolean
@@ -16,30 +14,26 @@ const Unsubscribe = ({ validId }: Props): JSX.Element => {
   const router = useRouter()
   const { id } = router.query
 
-  const handleUnsubscribe = async () => {
-    try {
-      await axios.post(`/api/unsubscribe?id=${id}`)
-    } catch {
-      toast.error('Error occurred while unsubscribing!')
-    }
-  }
+  // const handleUnsubscribe = async () => {
+  //   try {
+  //     await axios.post(`/api/unsubscribe?id=${id}`)
+  //   } catch {
+  //     toast.error('Error occurred while unsubscribing!')
+  //   }
+  // }
 
+  // TODO
   return (
-    <Section>
-      <Field>
-        <Level>
-          <Level.Item>
-            {validId && (
-              <Button color="info" outlined onClick={() => handleUnsubscribe()}>
-                Subscribe
-              </Button>
-            )}
-            {!validId && <NotFound />}
-          </Level.Item>
-        </Level>
-      </Field>
-      <ToastContainer />
-    </Section>
+    <>
+      {validId ? (
+        // <Button color="info" outlined onClick={() => handleUnsubscribe()}>
+        //   Subscribe
+        // </Button>
+        <h1>Found!</h1>
+      ) : (
+        <h1>Not Found!</h1>
+      )}
+    </>
   )
 }
 
