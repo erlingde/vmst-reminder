@@ -13,7 +13,7 @@ type Props = {
 }
 
 type FAIconProps = {
-  className: string
+  className?: string
   spinner?: boolean
   icon: IconProp
 }
@@ -75,6 +75,7 @@ const rotate = keyframes`
     transform: rotate(360deg);
   }
 `
+
 const FAIcon = ({ className, icon }: FAIconProps) => (
   <FontAwesomeIcon icon={icon} className={className} />
 )
@@ -84,7 +85,7 @@ const StyledFAIcon = styled(FAIcon)<FAIconProps>`
   animation: ${(props) =>
     props.spinner &&
     css`
-      animation: ${rotate} 1.5s linear infinite;
+      ${rotate} 1.5s linear infinite
     `};
 `
 
@@ -97,9 +98,9 @@ const SubscribeButton = ({
 }: Props) => (
   <Button type="button" disabled={disabled} onClick={() => onClick()}>
     {success ? (
-      <StyledFAIcon icon={faCheckCircle} className="" />
+      <StyledFAIcon icon={faCheckCircle} />
     ) : isLoading ? (
-      <StyledFAIcon icon={faSpinner} className="" spinner />
+      <StyledFAIcon icon={faSpinner} spinner />
     ) : (
       title
     )}
