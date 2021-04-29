@@ -14,7 +14,6 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif !important;
-  /* min-height: 100vh; */
   color: #333;
   line-height: 1.6;
 }
@@ -36,28 +35,7 @@ p {
   margin: 10px 0;
 }
 
-.custom-shape-divider-top-1616960561 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.custom-shape-divider-top-1616960561 svg {
-  position: relative;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 164px;
-}
-
-.custom-shape-divider-top-1616960561 .shape-fill {
-  fill: #ca1111;
-}
-
 header {
-  /* height: var(--header-height); */
   padding-top: 2rem;
 }
 
@@ -111,62 +89,6 @@ main {
   z-index: 1;
   animation-name: slideInFromRight;
   animation-duration: 1s;
-}
-
-.form {
-  position: relative;
-  height: 60px;
-  overflow: hidden;
-}
-
-.form input {
-  width: 100%;
-  height: 100%;
-  padding-top: 10px;
-  border: none;
-  outline: none;
-  background-color: transparent;
-}
-
-.form label {
-  position: absolute;
-  bottom: 0px;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  border-bottom: 1px solid #333;
-}
-
-.form label:after {
-  content: '';
-  position: absolute;
-  left: 0px;
-  bottom: -1px;
-  height: 100%;
-  width: 100%;
-  border-bottom: 3px solid var(--color-primary);
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-}
-
-.form input:focus + .label-email .content-email,
-.form input:valid + .label-email .content-email {
-  transform: translateY(-100%);
-  font-size: 14px;
-  color: var(--color-primary);
-}
-
-.form input:focus + .label-email:after,
-.form input:valid + .label-email:after {
-  transform: translateX(0%);
-}
-
-.content-email {
-  position: absolute;
-  bottom: 5px;
-  left: 0px;
-  transition: transform 0.3s ease;
 }
 
 .email-icon-wrapper {
