@@ -1,3 +1,5 @@
+import { DefaultTheme } from 'styled-components'
+
 export const globalStyles = `
   *,
   *::before,
@@ -52,8 +54,8 @@ export const globalStyles = `
   }
 `
 
-export const theme = {
+export const theme: DefaultTheme = {
   colors: {
-    primary: '#3498db',
+    primary: '#00765f',
   },
 }
