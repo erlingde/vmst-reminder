@@ -57,5 +57,7 @@ export const globalStyles = `
 export const theme: DefaultTheme = {
   colors: {
     primary: '#00765f',
+    secondary: '#B2AA8E',
+    extra: '#685369',
   },
 }
