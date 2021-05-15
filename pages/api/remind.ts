@@ -3,8 +3,8 @@ import nodemailer from 'nodemailer'
 import mjml from 'mjml'
 import mustache from 'mustache'
 
-import connectToDatabase from 'util/mongodb'
-import authMiddleware from 'util/authMiddleware'
+import connectToDatabase from 'utils/mongodb'
+import authMiddleware from 'utils/authMiddleware'
 import mjmlTemplate from 'email/reminder'
 
 type Email = {
@@ -23,7 +23,7 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, headers } = req
 
   if (
-    headers['x-api-key'] !== NEXT_PUBLIC_API_KEY &&
+    headers['x-api-key'] !== NEXT_PUBLIC_API_KEY ||
     headers['x-api-cron-key'] !== API_CRON_KEY
   )
     return res.status(401).end('Not Authorized')
@@ -46,7 +46,9 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       })
 
       emails.forEach(async (item: Email) => {
-        const renderedMJML = mustache.render(mjmlTemplate, { id: item.id })
+        const renderedMJML = mustache.render(mjmlTemplate, {
+          id: item.id,
+        })
         const { html } = mjml(renderedMJML)
 
         await transporter.sendMail({
