@@ -6,7 +6,7 @@ export default `
       </mj-raw>
       <mj-section background-color="#fafafa">
         <mj-column width="400px">
-          <mj-text font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Just a reminder to verify your job search for this month!</mj-text>
+          <mj-text font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Hey you! Just a reminder to verify your job search for this month!</mj-text>
           <mj-text color="#525252">Stay strong and best of luck with your job search beautiful human you!</mj-text>
           <mj-button background-color="#00765f" href="https://vinnumalastofnun.is">Vinnumálastofnun</mj-button>
         </mj-column>
