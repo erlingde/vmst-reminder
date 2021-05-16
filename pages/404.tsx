@@ -1,5 +1,12 @@
-// import NotFound from 'assets/svg/NotFound.svg'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export default function Custom404() {
-  return <h1>Not found</h1>
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push('/')
+  }, [])
+
+  return null
 }
