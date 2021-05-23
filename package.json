@@ -38,6 +38,7 @@
     "mustache": "^4.1.0",
     "nanoid": "^3.1.22",
     "next": "^10.2.0",
+    "next-images": "^1.7.0",
     "next-seo": "^4.24.0",
     "nodemailer": "^6.5.0",
     "react": "^17.0.1",
