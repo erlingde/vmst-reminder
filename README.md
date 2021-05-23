@@ -1,15 +1,13 @@
 <!-- PROJECT LOGO -->
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="assets/img/Logo.png" alt="Logo" width="80" height="80">
+  <a href="https://vmst-reminder.vercel.app/">
+    <img src="assets/png/Logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">VMST Reminder</h3>
 
   <p align="center">
     Monthly e-mail reminder for VMST.
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/erlingde/vmst-reminder">Report Bug</a>
