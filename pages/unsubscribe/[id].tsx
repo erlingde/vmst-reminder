@@ -1,10 +1,15 @@
+import { useEffect, useState } from 'react'
 import { NextPageContext } from 'next'
 import { useRouter } from 'next/router'
-import axios from 'axios'
 
-import connectToDatabase from 'util/mongodb'
+import Container from 'components/atoms/Container'
+import LoadingSpinner from 'components/atoms/LoadingSpinner'
+import UnsubscribeCard from 'components/molecules/UnsubscribeCard'
+import Card from 'components/organisms/Card'
 
-// import NotFound from 'assets/svg/NotFound.svg'
+import connectToDatabase, {
+  checkExistingEmailSubscriptionById,
+} from 'utils/mongodb'
 
 type Props = {
   validId: boolean
@@ -12,28 +17,25 @@ type Props = {
 
 const Unsubscribe = ({ validId }: Props): JSX.Element => {
   const router = useRouter()
-  const { id } = router.query
+  const [loading, setLoading] = useState(true)
 
-  // const handleUnsubscribe = async () => {
-  //   try {
-  //     await axios.post(`/api/unsubscribe?id=${id}`)
-  //   } catch {
-  //     toast.error('Error occurred while unsubscribing!')
-  //   }
-  // }
+  useEffect(() => {
+    if (!validId) router.push('/')
+  }, [])
 
-  // TODO
+  if (validId) {
+    if (!loading) setLoading(false)
+    return (
+      <Container>
+        <Card front={<UnsubscribeCard />} />
+      </Container>
+    )
+  }
+
   return (
-    <>
-      {validId ? (
-        // <Button color="info" outlined onClick={() => handleUnsubscribe()}>
-        //   Subscribe
-        // </Button>
-        <h1>Found!</h1>
-      ) : (
-        <h1>Not Found!</h1>
-      )}
-    </>
+    <Container>
+      <LoadingSpinner />
+    </Container>
   )
 }
 
@@ -41,14 +43,26 @@ export async function getServerSideProps(context: NextPageContext) {
   const { db } = await connectToDatabase()
   const { id } = context.query
 
-  const checkExistingEmail = await db.collection('emails').findOne({
-    id,
-    enabled: true,
-  })
+  const checkExistingEmail = await checkExistingEmailSubscriptionById(
+    id as string
+  )
+
+  if (!checkExistingEmail) return { props: { validId: false } }
+
+  const updateSuccess = await db.collection('emails').updateOne(
+    {
+      _id: id,
+    },
+    {
+      $set: {
+        enabled: false,
+      },
+    }
+  )
 
   return {
     props: {
-      validId: !!checkExistingEmail,
+      validId: !!updateSuccess,
     },
   }
 }
