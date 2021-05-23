@@ -1,3 +1,9 @@
+import React from 'react'
+
+export default function Breakpoints() {
+  return <></>
+}
+
 // TODO: Implement breakpoints
 // import { css } from 'styled-components'
 
