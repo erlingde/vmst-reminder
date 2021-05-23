@@ -90,6 +90,7 @@ To get a local copy up and running follow these simple example steps.
    NEXT_PUBLIC_API_KEY=[ENTER API KEY]
    GMAIL_USER=[ENTER GMAIL EMAIL ADDRESS]
    GMAIL_PASSWORD=[ENTER GMAIL PASSWORD]
+   HOST_URL=[ENTER HOST URL]
    ```
 
 <!-- LICENSE -->
