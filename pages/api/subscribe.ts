@@ -1,40 +1,87 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { nanoid } from 'nanoid'
+import nodemailer from 'nodemailer'
+import mjml from 'mjml'
+import mustache from 'mustache'
 
-import connectToDatabase from 'util/mongodb'
-import authMiddleware from 'util/authMiddleware'
+import connectToDatabase, {
+  checkExistingEmailVerification,
+  checkExistingEmailSubscription,
+} from 'utils/mongodb'
+import authMiddleware from 'utils/authMiddleware'
 
-const subscribeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { NEXT_PUBLIC_API_KEY } = process.env
+import mjmlTemplate from 'email/verify'
+
+import { VerificationsCollection } from 'interfaces/dbCollections'
+
+const verifyHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const {
+    NEXT_PUBLIC_API_KEY,
+    GMAIL_PASSWORD,
+    GMAIL_USER,
+    NODE_ENV,
+    HOST_URL,
+  } = process.env
   const {
     body: { email },
-    headers,
     method,
+    headers,
   } = req
 
   if (headers['x-api-key'] !== NEXT_PUBLIC_API_KEY)
     return res.status(401).end('Not Authorized')
 
+  if (!email) return res.status(400).end('E-mail missing')
+
   switch (method) {
     case 'POST': {
       const { db } = await connectToDatabase()
-      const collection = db.collection('emails')
+      const verificationCollection = db.collection<VerificationsCollection>(
+        'verification'
+      )
 
-      const checkExistingEmail = await collection.findOne({
-        email,
-      })
-
-      if (checkExistingEmail) {
-        return res.status(400).end('E-mail already signed up')
+      if (await checkExistingEmailVerification(email)) {
+        return res.status(400).end('E-mail already on verification list')
       }
 
-      collection.insertOne({
-        id: nanoid(12),
+      if (await checkExistingEmailSubscription(email)) {
+        return res.status(400).end('E-mail already on subscription list')
+      }
+
+      const id = nanoid(12)
+
+      verificationCollection.insertOne({
+        _id: id,
         email,
-        enabled: true,
+        createdAt: new Date(),
       })
 
-      return res.status(200).end()
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: GMAIL_USER,
+          pass: GMAIL_PASSWORD,
+        },
+      })
+
+      const renderedMJML = mustache.render(mjmlTemplate, {
+        id,
+        host: NODE_ENV === 'development' ? 'localhost:3000' : HOST_URL,
+      })
+
+      const { html } = mjml(renderedMJML)
+
+      await transporter.sendMail({
+        from: `"Vinnumálastofnun Reminder" <${GMAIL_USER}>`,
+        to: email,
+        subject: 'Verify your e-mail',
+        text: 'E-mail verification', // TODO
+        html,
+      })
+
+      return res
+        .status(200)
+        .end('E-mail successfully added to verification list')
     }
     default:
       res.setHeader('Allow', ['POST'])
@@ -42,4 +89,4 @@ const subscribeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default authMiddleware(subscribeHandler)
+export default authMiddleware(verifyHandler)

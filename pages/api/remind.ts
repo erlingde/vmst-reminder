@@ -7,11 +7,7 @@ import connectToDatabase from 'utils/mongodb'
 import authMiddleware from 'utils/authMiddleware'
 import mjmlTemplate from 'email/reminder'
 
-type Email = {
-  id: string
-  email: string
-  enabled: boolean
-}
+import { EmailsCollection } from 'interfaces/dbCollections'
 
 const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
@@ -19,6 +15,8 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     API_CRON_KEY,
     GMAIL_PASSWORD,
     GMAIL_USER,
+    NODE_ENV,
+    HOST_URL,
   } = process.env
   const { method, headers } = req
 
@@ -33,7 +31,7 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const { db } = await connectToDatabase()
       const collection = db.collection('emails')
 
-      const emails: Array<Email> = await collection
+      const emails: Array<EmailsCollection> = await collection
         .find({ enabled: true })
         .toArray()
 
@@ -45,9 +43,11 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       })
 
-      emails.forEach(async (item: Email) => {
+      emails.forEach(async (item: EmailsCollection) => {
         const renderedMJML = mustache.render(mjmlTemplate, {
-          id: item.id,
+          // eslint-disable-next-line no-underscore-dangle
+          id: item._id,
+          host: NODE_ENV === 'development' ? 'localhost:3000' : HOST_URL,
         })
         const { html } = mjml(renderedMJML)
 
