@@ -1,27 +1,16 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
+
+import { Alert } from 'components/atoms/Keyframes'
 
 type Props = {
-  className: string
   width: string
   height: string
+  color: string
 }
-
-const Alert = keyframes`
-  from {
-    transform: translateY(0)
-  }
-
-  50% {
-    transform: translateY(-2px)
-  }
-
-  to {
-    transform: translateY(0)
-  }
-`
 
 const StyledLogo = styled.svg`
   overflow: visible;
+
   &:hover #RightLine,
   &:focus #RightLine,
   &:hover #LeftLine,
@@ -30,14 +19,13 @@ const StyledLogo = styled.svg`
   }
 `
 
-const Logo = ({ className, width, height }: Props) => (
+const Logo = ({ width, height, color }: Props) => (
   <StyledLogo
-    className={className}
     width={width}
     height={height}
     viewBox="0 0 24 24"
     strokeWidth="1.5"
-    stroke="#2c3e50"
+    stroke={color}
     fill="none"
     strokeLinecap="round"
     strokeLinejoin="round"

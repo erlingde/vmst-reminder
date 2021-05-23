@@ -24,13 +24,11 @@ const wave = keyframes`
 
 const Arm = styled.path`
   transform-origin: 130px 106px;
-  /* fill: ${(props) => props.theme.colors.primary}; */
-  fill: currentColor;
+  fill: ${(props) => props.theme.colors.bg};
 `
 
 const Body = styled.path`
-  /* fill: ${(props) => props.theme.colors.primary}; */
-  fill: currentColor;
+  fill: ${(props) => props.theme.colors.bg};
 `
 
 const Corner = styled.a`
@@ -51,7 +49,7 @@ const Corner = styled.a`
 
 const StyledGithub = styled.svg`
   fill: ${(props) => props.theme.colors.primary};
-  color: #fff;
+  color: ${(props) => props.theme.colors.secondary};
   position: absolute;
   top: 0;
   border: 0;
