@@ -1,5 +1,29 @@
 import { DefaultTheme } from 'styled-components'
 
+export const theme: DefaultTheme = {
+  colors: {
+    primary: 'hsl(168, 100%, 23%)',
+    secondary: 'hsl(47, 19%, 85%)',
+    extra: '#685369',
+    bg: 'hsl(168, 20%, 75%)',
+  },
+  breakpoints: {
+    phone: '599px',
+    tabletPortait: '600px',
+    tableLandscape: '900px',
+    desktop: '1200px',
+    desktopBig: '1800px',
+  },
+  margin: {
+    sm: '1em',
+    md: '2em',
+    lg: '3em',
+    xl: '4em',
+  },
+  sectionMixin:
+    'background: white; border-radius: 5px; border: 1px solid blue;',
+}
+
 export const globalStyles = `
   *,
   *::before,
@@ -13,10 +37,8 @@ export const globalStyles = `
     font-family: 'Poppins', sans-serif !important;
     color: #333;
     line-height: 1.6;
-  }
-
-  html { 
-    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+    background: ${theme.colors.bg};
+    min-height: 100vh;
   }
 
   h1 {
@@ -28,17 +50,21 @@ export const globalStyles = `
     font-weight: 300;
     line-height: 1.2;
     margin: 10px 0;
+    color: #333;
   }
 
   p {
-    font-size: clamp(1em, 2vw, 2em);
-    font-weight: 400;
     margin: 10px 0;
+    color: #333;
   }
 
   a, a:visited {
     text-decoration: none;
     color: #333;
+  }
+
+  ::selection {
+    background: ${theme.colors.primary};
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -53,11 +79,3 @@ export const globalStyles = `
     }
   }
 `
-
-export const theme: DefaultTheme = {
-  colors: {
-    primary: '#00765f',
-    secondary: '#B2AA8E',
-    extra: '#685369',
-  },
-}
