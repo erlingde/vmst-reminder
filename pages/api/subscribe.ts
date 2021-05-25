@@ -10,7 +10,7 @@ import connectToDatabase, {
 } from 'utils/mongodb'
 import authMiddleware from 'utils/authMiddleware'
 
-import mjmlTemplate from 'email/verify'
+import verifyTemplate from 'email/verify'
 
 import { VerificationsCollection } from 'interfaces/dbCollections'
 
@@ -64,7 +64,7 @@ const verifyHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       })
 
-      const renderedMJML = mustache.render(mjmlTemplate, {
+      const renderedMJML = mustache.render(verifyTemplate, {
         id,
         host: NODE_ENV === 'development' ? 'localhost:3000' : HOST_URL,
       })

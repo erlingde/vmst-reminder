@@ -5,7 +5,7 @@ import mustache from 'mustache'
 
 import connectToDatabase from 'utils/mongodb'
 import authMiddleware from 'utils/authMiddleware'
-import mjmlTemplate from 'email/reminder'
+import reminderTemplate from 'email/reminder'
 
 import { EmailsCollection } from 'interfaces/dbCollections'
 
@@ -44,7 +44,7 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       })
 
       emails.forEach(async (item: EmailsCollection) => {
-        const renderedMJML = mustache.render(mjmlTemplate, {
+        const renderedMJML = mustache.render(reminderTemplate, {
           // eslint-disable-next-line no-underscore-dangle
           id: item._id,
           host: NODE_ENV === 'development' ? 'localhost:3000' : HOST_URL,
