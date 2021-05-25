@@ -57,7 +57,9 @@ const verifyHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       })
 
       const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        secure: true,
+        port: 465,
         auth: {
           user: GMAIL_USER,
           pass: GMAIL_PASSWORD,
