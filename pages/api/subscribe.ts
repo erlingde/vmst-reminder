@@ -17,9 +17,9 @@ import { VerificationsCollection } from 'interfaces/dbCollections'
 const verifyHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     NEXT_PUBLIC_API_KEY,
-    GMAIL_PASSWORD,
-    GMAIL_USER,
-    NODE_ENV,
+    EMAIL_PASSWORD,
+    EMAIL_USER,
+    SMTP_HOST,
     HOST_URL,
   } = process.env
   const {
@@ -57,29 +57,31 @@ const verifyHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       })
 
       const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
+        host: SMTP_HOST,
         secure: true,
         port: 465,
         auth: {
-          user: GMAIL_USER,
-          pass: GMAIL_PASSWORD,
+          user: EMAIL_USER,
+          pass: EMAIL_PASSWORD,
         },
       })
 
       const renderedMJML = mustache.render(verifyTemplate, {
         id,
-        host: NODE_ENV === 'development' ? 'localhost:3000' : HOST_URL,
+        host: HOST_URL,
       })
 
       const { html } = mjml(renderedMJML)
 
-      await transporter.sendMail({
-        from: `"Vinnumálastofnun Reminder" <${GMAIL_USER}>`,
-        to: email,
-        subject: 'Verify your e-mail',
-        text: 'E-mail verification', // TODO
-        html,
-      })
+      await transporter
+        .sendMail({
+          from: `"Vinnumálastofnun Reminder" <${EMAIL_USER}>`,
+          to: email,
+          subject: 'Verify your e-mail',
+          text: 'E-mail verification', // TODO
+          html,
+        })
+        .then(() => transporter.close())
 
       return res
         .status(200)
