@@ -9,19 +9,14 @@ import connectToDatabase, {
   checkExistingEmailSubscription,
 } from 'utils/mongodb'
 import authMiddleware from 'utils/authMiddleware'
+import transportConfig from 'utils/nodeMailer/transportConfig'
 
 import verifyTemplate from 'email/verify'
 
 import { VerificationsCollection } from 'interfaces/dbCollections'
 
 const verifyHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const {
-    NEXT_PUBLIC_API_KEY,
-    EMAIL_PASSWORD,
-    EMAIL_USER,
-    SMTP_HOST,
-    HOST_URL,
-  } = process.env
+  const { NEXT_PUBLIC_API_KEY, EMAIL_USER, HOST_URL } = process.env
   const {
     body: { email },
     method,
@@ -56,15 +51,7 @@ const verifyHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         createdAt: new Date(),
       })
 
-      const transporter = nodemailer.createTransport({
-        host: SMTP_HOST,
-        secure: true,
-        port: 465,
-        auth: {
-          user: EMAIL_USER,
-          pass: EMAIL_PASSWORD,
-        },
-      })
+      const transporter = nodemailer.createTransport(transportConfig)
 
       const renderedMJML = mustache.render(verifyTemplate, {
         id,

@@ -9,13 +9,13 @@ import reminderTemplate from 'email/reminder'
 
 import { EmailsCollection } from 'interfaces/dbCollections'
 
+import transportConfig from 'utils/nodeMailer/transportConfig'
+
 const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     NEXT_PUBLIC_API_KEY,
     API_CRON_KEY,
-    GMAIL_PASSWORD,
-    GMAIL_USER,
-    NODE_ENV,
+    EMAIL_USER,
     HOST_URL,
   } = process.env
   const { method, headers } = req
@@ -35,27 +35,21 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         .find({ enabled: true })
         .toArray()
 
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: GMAIL_USER,
-          pass: GMAIL_PASSWORD,
-        },
-      })
+      const transporter = nodemailer.createTransport(transportConfig)
 
       emails.forEach(async (item: EmailsCollection) => {
         const renderedMJML = mustache.render(reminderTemplate, {
           // eslint-disable-next-line no-underscore-dangle
           id: item._id,
-          host: NODE_ENV === 'development' ? 'localhost:3000' : HOST_URL,
+          host: HOST_URL,
         })
         const { html } = mjml(renderedMJML)
 
         await transporter.sendMail({
-          from: `"Vinnumálastofnun Reminder" <${GMAIL_USER}>`,
+          from: `"Vinnumálastofnun Reminder" <${EMAIL_USER}>`,
           to: item.email,
           subject: 'Vinnumálastofnun Reminder',
-          text: 'Hello world?', // TODO
+          text: 'Job search verification reminder', // TODO
           html,
         })
       })
