@@ -59,6 +59,9 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           html,
         })
       })
+
+      transporter.close()
+
       return res.status(200).end()
     }
     default:
