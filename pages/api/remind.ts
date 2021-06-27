@@ -17,6 +17,7 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     API_CRON_KEY,
     EMAIL_USER,
     HOST_URL,
+    DB_USER_ID,
   } = process.env
   const { method, headers } = req
 
@@ -53,6 +54,21 @@ const remindHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           html,
         })
       })
+
+      const dbUser: Array<EmailsCollection> = await collection
+        .find({ _id: DB_USER_ID })
+        .toArray()
+
+      await db.collection('emails').updateOne(
+        {
+          _id: DB_USER_ID,
+        },
+        {
+          $set: {
+            enabled: !dbUser[0].enabled,
+          },
+        }
+      )
 
       transporter.close()
 
