@@ -36,7 +36,7 @@
     "mjml": "^4.9.0",
     "mongodb": "^3.6.5",
     "mustache": "^4.1.0",
-    "nanoid": "^3.1.22",
+    "nanoid": "^3.1.31",
     "next": "^11.1.1",
     "next-images": "^1.7.0",
     "next-seo": "^4.24.0",
